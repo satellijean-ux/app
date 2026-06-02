@@ -1,0 +1,6 @@
+{
+  "name": "APH Primeiros Socorros",
+  "description": "Aplicativo de Atendimento Pré-Hospitalar (APH) e primeiros socorros rápido, direto e 100% offline.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
