@@ -188,6 +188,31 @@ export const protocols: Protocol[] = [
     voiceKeywords: ['parada', 'cardíaca', 'coração', 'parou', 'massagem', 'rcp', 'respira', 'ressuscitar', 'reanimar', 'dea']
   },
   {
+    id: 'desengasgo',
+    title: 'Desengasgo (Manobra de Heimlich)',
+    icon: 'Activity',
+    severity: 'critical',
+    meta: 'Manobra de Heimlich • OVACE',
+    shortDesc: 'Ações imediatas para desobstruir as vias aéreas de adultos, crianças e bebês engasgados.',
+    immediateAction: 'Identifique se o engasgamento é parcial (vítima tosse com força) ou total (não consegue falar ou respirar).',
+    steps: [
+      'Adultos e Crianças (Conscientes - Engasgo Total): Posicione-se por trás da vítima e abrace-a ao redor da cintura.',
+      'Feche uma das mãos em punho e coloque o polegar diretamente na linha média do abdômen, logo acima do umbigo (boca do estômago).',
+      'Segure o punho com a outra mão e realize compressões rápidas e vigorosas para DENTRO e para CIMA (movimento em "J").',
+      'Repita o movimento continuamente até que o corpo estranho seja expelido ou a vítima perca a consciência.',
+      'Bebês menores de 1 ano (Conscientes): Deite o bebê de bruços sobre o seu antebraço, inclinando a cabeça dele ligeiramente para baixo.',
+      'Aplique 5 palmadas firmes no meio das costas (entre as escápulas) usando o calcanhar da sua mão.',
+      'Vire o bebê de frente (barriga para cima) no outro braço e faça 5 compressões rápidas no peito com dois dedos (no centro do tórax).',
+      'Vítima Inconsciente (Qualquer idade): Se o paciente desfalecer, posicione-o de costas no chão, ligue para o SAMU (192) e inicie imediatamente as compressões do protocolo de Parada Cardiorrespiratória (PCR). Olhe a boca antes de tentar ventilar.'
+    ],
+    forbidden: [
+      'NÃO tente pinçar ou puxar o objeto às cegas com os dedos dentro da garganta da vítima (risco de empurrar o objeto ainda mais para baixo).',
+      'NÃO dê sacudidas na vítima e nem dê tapas nas costas se ela estiver tossindo espontaneamente.',
+      'NÃO faça a manobra de Heimlich abdominal clássica em gestantes ou pessoas muito obesas (faça compressões no centro do peito/esterno).'
+    ],
+    voiceKeywords: ['desengasgo', 'engasgo', 'engasgado', 'heimlich', 'asfixia', 'ovace', 'sufocado', 'sufocando', 'garganta', 'engasgou', 'desengasgar', 'sufocar']
+  },
+  {
     id: 'avulsao-dentaria',
     title: 'Avulsão Dentária (Dente que caiu)',
     icon: 'Smile',
@@ -323,20 +348,22 @@ export const protocols: Protocol[] = [
     title: 'Animais Peçonhentos',
     icon: 'Bug',
     severity: 'urgent',
-    meta: 'Toxinologia de Cobras',
-    shortDesc: 'Diretrizes oficiais do Ministério da Saúde para o tratamento imediato de picadas de serpentes.',
-    immediateAction: 'Mantenha a vítima em repouso ABSOLUTO deitada de lado. Movimentos aceleram a absorção do veneno corporal.',
+    meta: 'Epidemiologia: Região Norte & Rondônia',
+    shortDesc: 'Tratamento de acidentes ofídicos com foco epidemiológico no Estado de Rondônia e Região Norte, alinhado 100% às diretrizes do Ministério da Saúde.',
+    immediateAction: 'Mantenha a vítima deitada, em repouso absoluto e calma. Evite qualquer movimentação para que o veneno não se espalhe rapidamente pelo sistema circulatório.',
     steps: [
-      'Lave a ferida da picada apenas com água encanada e sabão neutro delicadamente.',
-      'Retire qualquer objeto apertado perto do membro atingido (anéis, pulseiras, calçados) antes que ele inche de forma severa.',
-      'Tente tirar uma fotografia nítida da cobra ou memorizar o padrão de cores, marcas e cauda do réptil a uma distância segura política (isso permite escolher o soro antiofídico exato no hospital).',
-      'Mantenha o membro acometido na mesma linha do coração ou ligeiramente elevado, se confortável.',
-      'Procure imediatamente o hospital credenciado mais próximo que disponha de soroterapia especializada do SUS.'
+      'Mantenha a vítima deitada em posição confortável e em repouso absoluto.',
+      'Mantenha a vítima hidratada, oferecendo água em pequenos goles se ela estiver consciente.',
+      'Lave o local da picada imediatamente e de forma abundante apenas com água corrente e sabão neutro.',
+      'Retire anéis, pulseiras, relógios ou calçados apertados no membro afetado antes que se inicie o inchaço severo.',
+      'Busque atendimento médico urgente para aplicação do soro antiofídico específico (Soro Antibotrópico, Antilaquético, Anticrotálico ou Antielapídico) o mais rápido possível.',
+      'Se possível e seguro, memorize ou tire uma foto da serpente para ajudar na identificação epidemiológica do gênero pela equipe médica.'
     ],
     forbidden: [
-      'NÃO faça torniquetes ou amarras apertadas na perna ou braço picados (isso concentra o veneno e causa necrose severa localizada).',
-      'NÃO corte o local da picada com canivetes e NÃO sugue o sangue ferido de forma alguma.',
-      'Não passe café, fumo, ervas ou terra debaixo da ferida aberta.'
+      'NÃO faça torniquete ou garrote de forma alguma no braço ou perna picados (concentra o veneno e acelera a necrose e perda de membros).',
+      'NÃO corte o local da picada e NÃO sugue o veneno com a boca.',
+      'NÃO aplique fumo, borra de café, urina, ervas, terra ou pomadas caseiras sobre a ferida para evitar infecções secundárias graves.',
+      'NÃO ofereça bebidas alcoólicas, querosene ou medicamentos estimulantes à vítima.'
     ],
     catalogTitle: 'Catálogo de Serpentes de Interesse Médico (Ministério da Saúde - Brasil)',
     catalog: [
@@ -348,7 +375,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Dor intensa e imediata no local da picada', 'Inchaço acentuado com vermelhidão e calor', 'Manchas roxas de sangramento interno', 'Sangramentos subsequentes pelas gengivas e nariz.'],
         treatment: ['Soro Antibotrópico (aplicado exclusivamente em ambiente hospitalar).'],
         description: 'Responsável por cerca de 90% dos acidentes ofídicos no Brasil. Possui padrão de desenhos em forma de "V" invertido ao longo do dorso e fosseta loreal.',
-        visualIdentifier: 'Desenhos geométricos em tons de cinza, marrom e preto. Fosseta loreal evidente (orifício entre o olho e a narina).'
+        visualIdentifier: 'Desenhos geométricos em tons de cinza, marrom e preto. Fosseta loreal evidente (orifício entre o olho e a narina).',
+        image: 'img_jararaca'
       },
       {
         id: 'cascavel',
@@ -358,7 +386,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Dor discreta local ou quase nula na picada', 'Instalação de pálpebras caídas (fácies miastênica / olhar de sono) em poucas horas', 'Visão dupla ou turva', 'Falta de ar', 'Urina com coloração marrom-escura ou avermelhada.'],
         treatment: ['Soro Anticrotálico (essencial para evitar falência renal severa).'],
         description: 'Possui cauda modificada com um guizo / chocalho característico na ponta. Habita regiões secas, campos abertos e áreas pedregosas.',
-        visualIdentifier: 'Presença nítida de chocalho na ponta da cauda. Padrão de losangos escuros em todo o dorso.'
+        visualIdentifier: 'Presença nítida de chocalho na ponta da cauda. Padrão de losangos escuros em todo o dorso.',
+        image: 'img_cascavel'
       },
       {
         id: 'surucucu',
@@ -368,7 +397,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Dor extrema local com inchaço progressivo', 'Diarreia e fortes cólicas intestinais minutos após o acidente', 'Diminuição expressiva da frequência cardíaca', 'Náuseas e sangramentos.'],
         treatment: ['Soro Antilaquético ou Soro Antibotrópico-Laquético.'],
         description: 'A maior cobra peçonhenta das Américas (pode passar de 3 metros). Suas escamas são altamente salientes, lembrando a casca rugosa de uma jaca.',
-        visualIdentifier: 'Escamas marrons ou amareladas espessas com manchas pretas em formato de losangos romboides ao longo do corpo.'
+        visualIdentifier: 'Escamas marrons ou amareladas espessas com manchas pretas em formato de losangos romboides ao longo do corpo.',
+        image: 'img_surucucu'
       },
       {
         id: 'coral',
@@ -378,7 +408,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Praticamente nenhuma reação local visível', 'Fraqueza muscular generalizada progressiva rápida', 'Visão dupla e salivação excessiva', 'Parada muscular respiratória grave (asfixia neurotóxica) em poucas horas.'],
         treatment: ['Soro Antielapídico urgente (necessita isolamento de suporte respiratório).'],
         description: 'Cobra de padrão estético marcante extremamente venenosa que não possui fosseta loreal. Prefere ambientes semi-subterrâneos sob folhas e troncos.',
-        visualIdentifier: 'Anéis coloridos vermelhos, pretos, e amarelos/brancos contornando todo o corpo longitudinalmente.'
+        visualIdentifier: 'Anéis coloridos vermelhos, pretos, e amarelos/brancos contornando todo o corpo longitudinalmente.',
+        image: 'img_coral'
       }
     ],
     voiceKeywords: ['cobra', 'serpente', 'picada de cobra', 'peçonhento', 'aranha', 'escorpião', 'jararaca', 'cascavel', 'surucucu', 'coral', 'picou', 'ferrão']
@@ -438,7 +469,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Dor em queimação violenta imediata na boca, língua e lábios', 'Inchaço (edema) de tecidos orais dificultando fonação', 'Salivação abundante de saliva', 'Risco severo de bloqueio respiratório por edema de glote.'],
         treatment: ['Lavar intensamente com água limpa', 'Dar leite gelado em pequenos goles para acalentar', 'NÃO provocar vômitos', 'Procurar atendimento hospitalar de urgência.'],
         description: 'Planta ornamental clássica doméstica de folhas grandes verdes ovaladas com manchas brancas/amareladas centrais.',
-        visualIdentifier: 'Folhas grandes verdes brilhantes com textura manchada de branco/creme ao centro.'
+        visualIdentifier: 'Folhas grandes verdes brilhantes com textura manchada de branco/creme ao centro.',
+        image: 'img_comigo_ninguem_pode'
       },
       {
         id: 'mamona',
@@ -448,7 +480,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Surgimento tardio de náuseas graves com vômitos', 'Cólicas abdominais intensas', 'Diarreia sanguinolenta contínua', 'Desidratação fulminante', 'Toxicidade celular renal por ingestão das sementes.'],
         treatment: ['Internação hospitalar imediata para hidratação venosa e carvão ativado nos primeiros minutos.'],
         description: 'Arbusto muito comum em terrenos baldios brasileiros. Produz frutos espinhosos amarelos/vermelhos contendo sementes rajadas extremamente tóxicas (Ricina).',
-        visualIdentifier: 'Folhas recortadas em formato de estrela. Frutos redondos com espinhos moles contendo sementes parecidas com carrapatos.'
+        visualIdentifier: 'Folhas recortadas em formato de estrela. Frutos redondos com espinhos moles contendo sementes parecidas com carrapatos.',
+        image: 'img_mamona'
       },
       {
         id: 'copo-de-leite',
@@ -458,7 +491,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Salivação abundante', 'Queimação extrema em toda a cavidade oral', 'Dificuldade de deglutição', 'Inchaço da glote', 'Vômitos.'],
         treatment: ['Administração de analgésicos sob prescrição médica', 'Lavagem mecânica exaustiva das mucosas', 'Compressas de gelo externas no pescoço.'],
         description: 'Flor branca elegante no formato de cálice com um espádice amarelo central.',
-        visualIdentifier: 'Inflorescência branca característica em forma de copo com bastão amarelo central.'
+        visualIdentifier: 'Inflorescência branca característica em forma de copo com bastão amarelo central.',
+        image: 'img_copo_de_leite'
       },
       {
         id: 'espada-sao-jorge',
@@ -468,7 +502,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Irritação leve de mucosas', 'Salivação excessiva', 'Náuseas leves', 'Distúrbios digestivos transitórios se ingerida em grande volume.'],
         treatment: ['Oferecer água fria e monitorar sintomas digestivos.', 'Lavar mucosas afetadas.'],
         description: 'Planta de folhas verticais pontiagudas rígidas, bicolor de verde escuro e amarelado.',
-        visualIdentifier: 'Folhas em formato de espadas pontiagudas crescendo direto do solo com margens amarelas.'
+        visualIdentifier: 'Folhas em formato de espadas pontiagudas crescendo direto do solo com margens amarelas.',
+        image: 'img_espada_de_sao_jorge'
       },
       {
         id: 'bico-de-papagaio',
@@ -478,7 +513,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Irritação cutânea com vermelhidão extrema ao contato da seiva leitosa', 'Queimação de conjuntivas e dor nos olhos', 'Náuseas se engolida.'],
         treatment: ['Lavar abundantemente com água fria corrente por no mínimo 15 minutos.'],
         description: 'Arbusto ornamental natalino muito popular, caracterizado pelas folhas superiores vermelhas intensas que lembram flores.',
-        visualIdentifier: 'Folhas superiores que mudam de cor para vermelho vivo e produz seiva leitosa espessa ao quebrar o caule.'
+        visualIdentifier: 'Folhas superiores que mudam de cor para vermelho vivo e produz seiva leitosa espessa ao quebrar o caule.',
+        image: 'img_bico_de_papagaio'
       },
       {
         id: 'coroa-de-cristo',
@@ -488,7 +524,8 @@ export const protocols: Protocol[] = [
         symptoms: ['Dor local intensa', 'Inflamação dermatológica agressiva no contato com seiva', 'Sensação de cegueira transitória se atingir os olhos.'],
         treatment: ['Lavagem imediata d\'água abundante. Colírios lubrificantes e analgésicos se em contato ocular.'],
         description: 'Planta espinhosa de pequeno porte com flores avermelhadas e seiva láctica muito irritante.',
-        visualIdentifier: 'Caules repletos de espinhos pretos pontiagudos com pequenas flores ovadas vermelhas de duas pétalas.'
+        visualIdentifier: 'Caules repletos de espinhos pretos pontiagudos com pequenas flores ovadas vermelhas de duas pétalas.',
+        image: 'img_coroa_de_cristo'
       }
     ],
     voiceKeywords: ['planta', 'flor', 'folha', 'comer planta', 'plantas', 'tóxica', 'comigo ninguem pode', 'mamona', 'matogrosso', 'venenosa', 'ingestão de planta']

@@ -14,6 +14,7 @@ export interface CatalogItem {
   treatment: string[];
   description: string;
   visualIdentifier: string; // Describes visual aspect or has an SVG silhouette/pattern description
+  image?: string; // Local asset file path or drawable variable reference (e.g. img_jararaca)
 }
 
 export interface Protocol {
