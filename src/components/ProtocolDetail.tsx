@@ -34,7 +34,7 @@ import imgSurucucu from '../assets/images/surucucu_snake_1780454942695.png';
 import imgCoral from '../assets/images/coral_snake_1780455147922.png';
 
 // Placeholders associated with local resources (res/drawable)
-const renderLocalGraphic = (imageId: string) => {
+const renderLocalGraphic = (imageId: string, isDarkMode: boolean = false) => {
   if (imageId === 'img_comigo_ninguem_pode') {
     return (
       <div className="flex flex-col items-center justify-center py-2 select-none w-full">
@@ -223,8 +223,10 @@ const renderLocalGraphic = (imageId: string) => {
   if (!vector) return null;
 
   return (
-    <div className="flex flex-col items-center justify-center p-3 bg-slate-50 border border-slate-150 rounded-2xl relative overflow-hidden select-none">
-      <div className="absolute inset-0 bg-blue-50/10 pointer-events-none" />
+    <div className={`flex flex-col items-center justify-center p-3 rounded-2xl relative overflow-hidden select-none border transition-colors duration-300 ${
+      isDarkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-150'
+    }`}>
+      <div className={`absolute inset-0 pointer-events-none ${isDarkMode ? 'bg-blue-950/5' : 'bg-blue-50/10'}`} />
       <div className="relative z-10 my-1">
         {vector}
       </div>
@@ -235,9 +237,10 @@ const renderLocalGraphic = (imageId: string) => {
 interface ProtocolDetailProps {
   protocol: Protocol;
   onBack: () => void;
+  isDarkMode?: boolean;
 }
 
-export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack }) => {
+export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack, isDarkMode = false }) => {
   const [catalogSearch, setCatalogSearch] = useState<string>('');
 
   // Map Lucide icons safely
@@ -251,36 +254,70 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
 
   // Severity style configuration
   const getSeverityStyle = (severity: string) => {
-    switch (severity) {
-      case 'critical':
-        return {
-          bg: 'bg-white border-red-200 shadow-sm',
-          badge: 'bg-red-650 text-white shadow-md shadow-red-100 font-bold',
-          badgeText: 'Emergência Crítica (Risco de Morte)',
-          immediateBg: 'bg-red-50 border-l-4 border-red-600 text-red-950 font-semibold'
-        };
-      case 'urgent':
-        return {
-          bg: 'bg-white border-amber-200 shadow-sm',
-          badge: 'bg-amber-500 text-slate-950 shadow-md shadow-amber-100 font-black',
-          badgeText: 'Urgência Médica',
-          immediateBg: 'bg-amber-50 border-l-4 border-amber-500 text-slate-805 font-semibold'
-        };
-      case 'moderate':
-        return {
-          bg: 'bg-white border-blue-100 shadow-sm',
-          badge: 'bg-blue-600 text-white shadow-md shadow-blue-105 font-bold',
-          badgeText: 'Intervenção Moderada',
-          immediateBg: 'bg-blue-50 border-l-4 border-blue-600 text-blue-950 font-semibold'
-        };
-      case 'informative':
-      default:
-        return {
-          bg: 'bg-white border-slate-200 shadow-sm',
-          badge: 'bg-slate-700 text-white font-bold',
-          badgeText: 'Suporte Informativo',
-          immediateBg: 'bg-slate-50 text-slate-900 border-l-4 border-blue-600 font-semibold'
-        };
+    if (isDarkMode) {
+      switch (severity) {
+        case 'critical':
+          return {
+            bg: 'bg-slate-900 border-red-900/60 shadow-sm text-slate-100',
+            badge: 'bg-red-650 text-white shadow-md shadow-red-955/25 font-bold',
+            badgeText: 'Emergência Crítica (Risco de Morte)',
+            immediateBg: 'bg-red-955 border-l-4 border-red-650 text-red-105 font-semibold border-t border-r border-b border-red-950'
+          };
+        case 'urgent':
+          return {
+            bg: 'bg-slate-900 border-amber-900/40 shadow-sm text-slate-100',
+            badge: 'bg-amber-600 text-slate-950 shadow-md shadow-amber-955/15 font-black',
+            badgeText: 'Urgência Médica',
+            immediateBg: 'bg-amber-955 border-l-4 border-amber-500 text-amber-105 font-semibold border-t border-r border-b border-amber-955'
+          };
+        case 'moderate':
+          return {
+            bg: 'bg-slate-900 border-blue-900/50 shadow-sm text-slate-100',
+            badge: 'bg-blue-600 text-white shadow-md shadow-blue-955/15' + ' font-bold',
+            badgeText: 'Intervenção Moderada',
+            immediateBg: 'bg-blue-955 border-l-4 border-blue-600 text-blue-105 font-semibold border-t border-r border-b border-blue-950'
+          };
+        case 'informative':
+        default:
+          return {
+            bg: 'bg-slate-900 border-slate-800 shadow-sm text-slate-100',
+            badge: 'bg-slate-700 text-white font-bold',
+            badgeText: 'Suporte Informativo',
+            immediateBg: 'bg-slate-850 text-slate-100 border-l-4 border-blue-600 font-semibold border-t border-r border-b border-slate-800'
+          };
+      }
+    } else {
+      switch (severity) {
+        case 'critical':
+          return {
+            bg: 'bg-white border-red-200 shadow-sm',
+            badge: 'bg-red-650 text-white shadow-md shadow-red-100 font-bold',
+            badgeText: 'Emergência Crítica (Risco de Morte)',
+            immediateBg: 'bg-red-50 border-l-4 border-red-600 text-red-950 font-semibold'
+          };
+        case 'urgent':
+          return {
+            bg: 'bg-white border-amber-200 shadow-sm',
+            badge: 'bg-amber-500 text-slate-950 shadow-md shadow-amber-100 font-black',
+            badgeText: 'Urgência Médica',
+            immediateBg: 'bg-amber-50 border-l-4 border-amber-500 text-slate-805 font-semibold'
+          };
+        case 'moderate':
+          return {
+            bg: 'bg-white border-blue-100 shadow-sm',
+            badge: 'bg-blue-600 text-white shadow-md shadow-blue-105 font-bold',
+            badgeText: 'Intervenção Moderada',
+            immediateBg: 'bg-blue-50 border-l-4 border-blue-600 text-blue-950 font-semibold'
+          };
+        case 'informative':
+        default:
+          return {
+            bg: 'bg-white border-slate-200 shadow-sm',
+            badge: 'bg-slate-700 text-white font-bold',
+            badgeText: 'Suporte Informativo',
+            immediateBg: 'bg-slate-50 text-slate-900 border-l-4 border-blue-600 font-semibold'
+          };
+      }
     }
   };
 
@@ -299,14 +336,20 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
   });
 
   return (
-    <div className="w-full flex flex-col min-h-screen bg-sky-50 pb-24 text-slate-950 font-sans">
+    <div className={`w-full flex flex-col min-h-screen pb-24 font-sans transition-colors duration-300 ${
+      isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-sky-50 text-slate-950'
+    }`}>
       {/* Dynamic Header */}
-      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-blue-100 px-4 py-3 shrink-0 shadow-sm">
+      <header className={`sticky top-0 z-30 px-4 py-3 shrink-0 shadow-sm border-b transition-colors duration-300 backdrop-blur-md ${
+        isDarkMode ? 'bg-slate-900/95 border-slate-850' : 'bg-white/95 border-blue-105'
+      }`}>
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <button
             id="btn_back_to_list"
             onClick={onBack}
-            className="flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-800 font-extrabold transition-colors py-2 px-1.5 select-none active:scale-95 cursor-pointer"
+            className={`flex items-center gap-1.5 text-xs font-extrabold transition-colors py-2 px-1.5 select-none active:scale-95 cursor-pointer ${
+              isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'
+            }`}
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar ao menu
@@ -323,18 +366,26 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
       {/* Main Container */}
       <main className="max-w-2xl w-full mx-auto p-4 space-y-6 flex-1">
         {/* Title & Short Description */}
-        <div className="bg-white border border-blue-100 rounded-3xl p-6 relative overflow-hidden shadow-sm text-slate-800">
+        <div className={`border rounded-3xl p-6 relative overflow-hidden shadow-sm ${
+          isDarkMode ? 'bg-slate-900 border-slate-850 text-slate-100' : 'bg-white border-blue-100 text-slate-800'
+        }`}>
           <div className="absolute top-5 right-5 animate-pulse opacity-20 pointer-events-none">
             {getIcon(protocol.icon)}
           </div>
           
-          <p className="text-[11px] font-black text-blue-600 uppercase tracking-widest mb-1.5 font-mono select-none">
+          <p className={`text-[11px] font-black uppercase tracking-widest mb-1.5 font-mono select-none ${
+            isDarkMode ? 'text-blue-400' : 'text-blue-600'
+          }`}>
             {protocol.meta}
           </p>
-          <h2 className="text-2xl font-black text-blue-950 leading-tight mb-2 select-all">
+          <h2 className={`text-2xl font-black leading-tight mb-2 select-all ${
+            isDarkMode ? 'text-white' : 'text-blue-950'
+          }`}>
             {protocol.title}
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed font-semibold">
+          <p className={`text-sm leading-relaxed font-semibold ${
+            isDarkMode ? 'text-slate-400' : 'text-slate-600'
+          }`}>
             {protocol.shortDesc}
           </p>
         </div>
@@ -351,9 +402,13 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
         </div>
 
         {/* STEP BY STEP PROTOCOLS */}
-        <div className="bg-white border border-blue-100 rounded-3xl p-6 space-y-5 shadow-sm text-slate-800">
-          <h3 className="text-base font-black text-blue-950 flex items-center gap-2 border-b border-blue-50 pb-3">
-            <span className="w-1.5 h-4 bg-blue-600 rounded-full" />
+        <div className={`rounded-3xl p-6 space-y-5 shadow-sm border ${
+          isDarkMode ? 'bg-slate-900 border-slate-850 text-slate-100' : 'bg-white border-blue-100 text-slate-800'
+        }`}>
+          <h3 className={`text-base font-black flex items-center gap-2 border-b pb-3 ${
+            isDarkMode ? 'text-white border-slate-800' : 'text-blue-950 border-blue-50'
+          }`}>
+            <span className={`w-1.5 h-4 rounded-full ${isDarkMode ? 'bg-blue-500' : 'bg-blue-600'}`} />
             Guia Passo a Passo Offline
           </h3>
           
@@ -372,15 +427,23 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
                 <div 
                   key={index} 
                   className={`flex gap-3.5 items-start p-4 rounded-2xl border transition-all ${
-                    isXabcde 
-                      ? 'bg-blue-50/50 border-blue-150 shadow-xs' 
-                      : 'bg-slate-50/50 border-slate-100'
+                    isDarkMode 
+                      ? isXabcde 
+                        ? 'bg-blue-955/20 border-blue-900/40 shadow-xs' 
+                        : 'bg-slate-950/20 border-slate-855'
+                      : isXabcde 
+                        ? 'bg-blue-50/50 border-blue-150 shadow-xs' 
+                        : 'bg-slate-50/50 border-slate-100'
                   }`}
                 >
-                  <div className="w-7 h-7 rounded-full bg-blue-600 text-white font-extrabold font-mono text-xs flex items-center justify-center shrink-0 select-none shadow-sm">
+                  <div className={`w-7 h-7 rounded-full text-white font-extrabold font-mono text-xs flex items-center justify-center shrink-0 select-none shadow-sm ${
+                    isDarkMode ? 'bg-blue-500' : 'bg-blue-600'
+                  }`}>
                     {index + 1}
                   </div>
-                  <div className="text-slate-700 text-sm leading-relaxed font-bold">
+                  <div className={`text-sm leading-relaxed font-bold ${
+                    isDarkMode ? 'text-slate-200' : 'text-slate-700'
+                  }`}>
                     {step}
                   </div>
                 </div>
@@ -390,16 +453,24 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
         </div>
 
         {/* ❌ WHAT NOT TO DO (FORBIDDEN) */}
-        <div className="bg-red-50/60 border border-red-150 rounded-3xl p-6 space-y-5 text-red-950 shadow-sm">
-          <h3 className="text-base font-black text-red-800 flex items-center gap-2 border-b border-red-100 pb-3 select-none">
-            <XOctagon className="w-5 h-5 text-red-600" />
+        <div className={`rounded-3xl p-6 space-y-5 shadow-sm border ${
+          isDarkMode 
+            ? 'bg-red-955/10 border-red-900/40 text-red-100' 
+            : 'bg-red-50/60 border-red-150 text-red-955'
+        }`}>
+          <h3 className={`text-base font-black flex items-center gap-2 border-b pb-3 select-none ${
+            isDarkMode ? 'text-red-300 border-red-950' : 'text-red-800 border-red-100'
+          }`}>
+            <XOctagon className={`w-5 h-5 ${isDarkMode ? 'text-red-400' : 'text-red-600'}`} />
             O que NÃO fazer (Contra-indicações Críticas)
           </h3>
           <ul className="space-y-3">
             {protocol.forbidden.map((forb, idx) => (
               <li key={idx} className="flex gap-2.5 items-start">
                 <div className="w-2 h-2 bg-red-600 rounded-full shrink-0 mt-1.5" />
-                <span className="text-red-900 text-[13px] leading-relaxed font-semibold">{forb}</span>
+                <span className={`text-[13px] leading-relaxed font-semibold ${
+                  isDarkMode ? 'text-red-200/90' : 'text-red-900'
+                }`}>{forb}</span>
               </li>
             ))}
           </ul>
@@ -407,22 +478,32 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
 
         {/* SPECIAL SYSTEM CATALOG: SNAKES OR TOXIC PLANTS */}
         {protocol.catalog && (
-          <div className="bg-white border border-blue-100 rounded-3xl p-6 space-y-5 shadow-sm text-slate-850">
-            <div className="border-b border-blue-50 pb-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3">
-              <h3 className="text-base font-black text-blue-900 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-blue-600" />
+          <div className={`rounded-3xl p-6 space-y-5 shadow-sm border ${
+            isDarkMode ? 'bg-slate-905 border-slate-850 text-slate-200' : 'bg-white border-blue-100 text-slate-850'
+          }`}>
+            <div className={`pb-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 border-b ${
+              isDarkMode ? 'border-slate-800' : 'border-blue-50'
+            }`}>
+              <h3 className={`text-base font-black flex items-center gap-2 ${
+                isDarkMode ? 'text-white' : 'text-blue-900'
+              }`}>
+                <BookOpen className={`w-5 h-5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
                 {protocol.catalogTitle || 'Catálogo de Consulta Offline'}
               </h3>
               
               {/* Internal search field for the offline catalog */}
               <div className="relative max-w-xs w-full">
-                <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
+                <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
                 <input
                   type="text"
                   placeholder="Pesquisar no catálogo..."
                   value={catalogSearch}
                   onChange={(e) => setCatalogSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-blue-100 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors font-medium"
+                  className={`w-full pl-9 pr-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors font-medium ${
+                    isDarkMode 
+                      ? 'bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 focus:border-blue-600 focus:ring-blue-600' 
+                      : 'bg-slate-50 border border-blue-100 text-slate-800 placeholder-slate-400 focus:border-blue-500'
+                  }`}
                 />
               </div>
             </div>
@@ -432,67 +513,83 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
             ) : (
               <div className="space-y-6">
                 {filteredCatalog?.map((item) => (
-                  <div key={item.id} className="bg-slate-50 border border-blue-100 rounded-3xl p-5 space-y-4 relative overflow-hidden shadow-xs">
+                  <div key={item.id} className={`rounded-3xl p-5 space-y-4 relative overflow-hidden shadow-xs border ${
+                    isDarkMode ? 'bg-slate-950 border-slate-850' : 'bg-slate-55 border-blue-100'
+                  }`}>
                     {/* Danger Rating Badge */}
-                    <div className="flex items-center justify-between gap-2 border-b border-blue-50 pb-2">
+                    <div className={`flex items-center justify-between gap-2 border-b pb-2 ${
+                      isDarkMode ? 'border-slate-850' : 'border-blue-50'
+                    }`}>
                       <div>
-                        <h4 className="text-[15px] font-black text-slate-900">
+                        <h4 className={`text-[15px] font-black ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                           {item.name}
                         </h4>
                         {item.scientificName && (
-                          <p className="text-xs italic text-slate-500 font-serif font-medium">
+                          <p className={`text-xs italic font-serif font-medium ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                             {item.scientificName}
                           </p>
                         )}
                       </div>
                       
                       <span className={`text-[9px] uppercase font-mono tracking-wider font-extrabold py-0.5 px-2.5 rounded-full border ${
-                        item.dangerLevel === 'high' 
-                          ? 'bg-red-50 text-red-705 border-red-200' 
-                          : item.dangerLevel === 'medium'
-                            ? 'bg-amber-50 text-amber-705 border-amber-200'
-                            : 'bg-emerald-50 text-emerald-805 border-emerald-250'
+                        isDarkMode
+                          ? item.dangerLevel === 'high'
+                            ? 'bg-red-955 text-red-300 border-red-900/60'
+                            : item.dangerLevel === 'medium'
+                              ? 'bg-amber-955 text-amber-300 border-amber-900/60'
+                              : 'bg-emerald-955 text-emerald-300 border-emerald-900/60'
+                          : item.dangerLevel === 'high' 
+                            ? 'bg-red-50 text-red-700 border-red-200' 
+                            : item.dangerLevel === 'medium'
+                              ? 'bg-amber-50 text-amber-700 border-amber-200'
+                              : 'bg-emerald-50 text-emerald-800 border-emerald-250'
                       }`}>
                         Perigo: {item.dangerLevel === 'high' ? 'Alto' : item.dangerLevel === 'medium' ? 'Médio' : 'Baixo'}
                       </span>
                     </div>
 
                     {/* Local stored graphic loader */}
-                    {item.image && renderLocalGraphic(item.image)}
+                    {item.image && renderLocalGraphic(item.image, isDarkMode)}
 
                     {/* Interactive silhouette/pattern visual tag */}
-                    <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 flex items-start gap-2.5 shadow-xs">
-                      <div className="w-2.5 h-2.5 bg-blue-600 rounded-full shrink-0 mt-1" />
-                      <p className="text-xs text-slate-700 leading-relaxed font-bold">
-                        <strong className="text-blue-600 select-none">Identificador Visual:</strong> {item.visualIdentifier}
+                    <div className={`p-4 rounded-xl border flex items-start gap-2.5 shadow-xs ${
+                      isDarkMode ? 'bg-blue-955/20 border-blue-900/40' : 'bg-blue-50/50 border-blue-100'
+                    }`}>
+                      <div className={`w-2.5 h-2.5 rounded-full shrink-0 mt-1 ${isDarkMode ? 'bg-blue-400' : 'bg-blue-600'}`} />
+                      <p className={`text-xs leading-relaxed font-bold ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
+                        <strong className={`select-none ${isDarkMode ? 'text-blue-400' : 'text-blue-650'}`}>Identificador Visual:</strong> {item.visualIdentifier}
                       </p>
                     </div>
 
                     <div className="space-y-1">
-                      <h5 className="text-[11px] font-black text-slate-400 uppercase tracking-widest font-mono select-none">Descrição Física</h5>
-                      <p className="text-xs text-slate-600 leading-relaxed font-semibold">
+                      <h5 className={`text-[11px] font-black uppercase tracking-widest font-mono select-none ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>Descrição Física</h5>
+                      <p className={`text-xs leading-relaxed font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                         {item.description}
                       </p>
                     </div>
 
                     {/* Symptoms */}
-                    <div className="space-y-2 bg-red-50/40 p-4 rounded-xl border border-red-150">
-                      <h5 className="text-[11px] font-black text-red-800 uppercase tracking-widest font-mono flex items-center gap-1 select-none">
-                        <AlertCircle className="w-3.5 h-3.5 text-red-600" />
+                    <div className={`space-y-2 p-4 rounded-xl border ${
+                      isDarkMode ? 'bg-red-955/15 border-red-900/40' : 'bg-red-50/40 border-red-150'
+                    }`}>
+                      <h5 className={`text-[11px] font-black uppercase tracking-widest font-mono flex items-center gap-1 select-none ${isDarkMode ? 'text-red-300' : 'text-red-800'}`}>
+                        <AlertCircle className={`w-3.5 h-3.5 ${isDarkMode ? 'text-red-405' : 'text-red-600'}`} />
                         Sintomas do Envenenamento / Contato
                       </h5>
-                      <ul className="list-disc list-inside space-y-1 text-xs text-red-950 pl-1 font-semibold">
+                      <ul className={`list-disc list-inside space-y-1 text-xs pl-1 font-semibold ${isDarkMode ? 'text-red-200' : 'text-red-955'}`}>
                         {item.symptoms.map((s, idx) => <li key={idx} className="leading-relaxed">{s}</li>)}
                       </ul>
                     </div>
 
                     {/* Official Treatment */}
-                    <div className="space-y-2 bg-emerald-50/40 p-4 rounded-xl border border-emerald-150">
-                      <h5 className="text-[11px] font-black text-emerald-800 uppercase tracking-widest font-mono flex items-center gap-1 select-none">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <div className={`space-y-2 p-4 rounded-xl border ${
+                      isDarkMode ? 'bg-emerald-955/15 border-emerald-900/40' : 'bg-emerald-50/40 border-emerald-150'
+                    }`}>
+                      <h5 className={`text-[11px] font-black uppercase tracking-widest font-mono flex items-center gap-1 select-none ${isDarkMode ? 'text-emerald-300' : 'text-emerald-800'}`}>
+                        <CheckCircle2 className={`w-3.5 h-3.5 ${isDarkMode ? 'text-emerald-405' : 'text-emerald-600'}`} />
                         Conduta Clínica e Antídotos (Min. da Saúde)
                       </h5>
-                      <ul className="list-disc list-inside space-y-1 text-xs text-emerald-950 pl-1 font-bold">
+                      <ul className={`list-disc list-inside space-y-1 text-xs pl-1 font-bold ${isDarkMode ? 'text-emerald-250' : 'text-emerald-955'}`}>
                         {item.treatment.map((t, idx) => <li key={idx} className="leading-relaxed font-black">{t}</li>)}
                       </ul>
                     </div>
@@ -504,13 +601,17 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
         )}
 
         {/* Emergency Call Box */}
-        <div className="bg-white border border-red-150 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-5 mt-6 shadow-sm">
+        <div className={`border rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-5 mt-6 shadow-sm ${
+          isDarkMode ? 'bg-slate-905 border-red-950/40' : 'bg-white border-red-150'
+        }`}>
           <div className="space-y-1 text-center md:text-left">
-            <h4 className="text-sm font-black text-red-650 flex items-center gap-1.5 justify-center md:justify-start">
+            <h4 className={`text-sm font-black flex items-center gap-1.5 justify-center md:justify-start ${
+              isDarkMode ? 'text-red-400' : 'text-red-650'
+            }`}>
               <PhoneCall className="w-4 h-4" />
               O quadro agravou-se na cena?
             </h4>
-            <p className="text-xs text-slate-500 font-medium max-w-sm leading-relaxed">
+            <p className={`text-xs font-medium max-w-sm leading-relaxed ${isDarkMode ? 'text-slate-450' : 'text-slate-500'}`}>
               Ligue imediatamente para o atendimento médico de emergência brasileiro de cobertura universal.
             </p>
           </div>
@@ -518,13 +619,17 @@ export const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onBack
           <div className="flex gap-2.5 w-full md:w-auto shrink-0">
             <a
               href="tel:192"
-              className="flex-1 md:flex-none py-3 px-5 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl text-xs flex items-center justify-center gap-1.5 transition-colors select-none active:scale-[0.98] shadow-md shadow-red-200 cursor-pointer"
+              className={`flex-1 md:flex-none py-3 px-5 text-white font-black rounded-2xl text-xs flex items-center justify-center gap-1.5 transition-all select-none active:scale-[0.98] shadow-md cursor-pointer ${
+                isDarkMode ? 'bg-red-650 hover:bg-red-700 shadow-red-950/50' : 'bg-red-600 hover:bg-red-700 shadow-red-200'
+              }`}
             >
               SAMU 192
             </a>
             <a
               href="tel:193"
-              className="flex-1 md:flex-none py-3 px-5 bg-slate-900 hover:bg-black text-white font-black rounded-2xl text-xs flex items-center justify-center gap-1.5 transition-colors select-none active:scale-[0.98] border border-slate-800 cursor-pointer"
+              className={`flex-1 md:flex-none py-3 px-5 text-white font-black rounded-2xl text-xs flex items-center justify-center gap-1.5 transition-all select-none active:scale-[0.98] cursor-pointer border ${
+                isDarkMode ? 'bg-slate-900 border-slate-750 hover:bg-slate-850' : 'bg-slate-900 hover:bg-black border-slate-800'
+              }`}
             >
               BOMBEIROS 193
             </a>
